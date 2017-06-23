@@ -2,7 +2,7 @@
 
 // Created by lupix. All rights reserved.
 
-use App\Entities\User;
+use App\Entities\ApiClient;
 use Illuminate\Database\Seeder;
 
 class ClientsTableSeeder extends Seeder
@@ -13,6 +13,6 @@ class ClientsTableSeeder extends Seeder
             ['name' => 'CSGOCallouts Website', 'api_token' => bin2hex(random_bytes(15))]
         ];
 
-        User::insert($clients);
+        ApiClient::insert($clients);
     }
 }
