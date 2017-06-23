@@ -13,8 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Callout extends Model
 {
     protected $fillable = [ 'name' ];
-
-
+    protected $hidden = [ 'pivot', 'created_at', 'updated_at' ];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      * The maps the callout belongs to
