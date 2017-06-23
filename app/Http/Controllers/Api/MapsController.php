@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Entities\Map;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
 class MapsController extends Controller
 {
@@ -19,20 +20,20 @@ class MapsController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * Will return the information about all available maps
      */
-    public function maps()
+    public function maps() : JsonResponse
     {
         return response()->json(Map::with('callouts')->get());
     }
 
     /**
      * @param int $id The ID of the map
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * Will return information about a specific map in JSON format
      */
-    public function map(int $id)
+    public function map(int $id) : JsonResponse
     {
         $map = Map::where('id', $id)->with('callouts')->get();
 
@@ -42,12 +43,12 @@ class MapsController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      * Will add a map to the database
      */
-    public function addMap(Request $request)
+    public function addMap(Request $request) : JsonResponse
     {
-        $this->validate($request, Map::$validation_rules);
+        $this->validate($request, ['name' => 'required']);
 
         $map = Map::create(['name' => $request->input('name')]);
 
