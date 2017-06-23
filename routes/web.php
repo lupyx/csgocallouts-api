@@ -17,7 +17,7 @@ $app->get('/', function () use ($app) {
 
 $app->group(['prefix' => 'api'], function() use ($app) {
 
-    $app->get('/map/{id}', 'Api/MapsController@map');
-    $app->get('/maps', 'Api/MapsController@maps');
-    $app->post('/map', 'Api/MapsController@addMap');
+    $app->get('/map/{id}', 'Api\MapsController@map');
+    $app->get('/maps', 'Api\MapsController@maps');
+    $app->post('/map', 'Api\MapsController@addMap');
 });
