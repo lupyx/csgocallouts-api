@@ -9,7 +9,8 @@
         "laravel/lumen-framework": "5.4.*",
         "vlucas/phpdotenv": "~2.2",
         "davismiculis/lumen-steam-auth": "^1.1",
-        "palanik/lumen-cors": "dev-master"
+        "palanik/lumen-cors": "dev-master",
+        "league/flysystem": " ~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
