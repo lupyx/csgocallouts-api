@@ -2,17 +2,17 @@
 
 // Created by lupix. All rights reserved.
 
-use App\Entities\User;
+use App\Entities\Callout;
 use Illuminate\Database\Seeder;
 
 class CalloutTableSeeder extends Seeder
 {
     public function run()
     {
-       /* $callouts = [
+        $callouts = [
             ['name' => 'CT Spawn']
         ];
 
-        User::insert($clients);*/
+        Callout::insert($callouts);
     }
 }

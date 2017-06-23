@@ -11,7 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Run the API clients seeder
         $this->call('ClientsTableSeeder');
+
+        // Run maps & callouts seeder, afterwards run the seeder that will assign callouts to maps
         $this->call('MapTableSeeder');
+        $this->call('CalloutTableSeeder');
+        $this->call('MapCalloutTableSeeder');
     }
 }
