@@ -21,6 +21,6 @@ class Map extends Model
      */
     public function callouts()
     {
-        return $this->belongsToMany(Callout::class);
+        return $this->belongsToMany(Callout::class, 'maps_callouts');
     }
 }
