@@ -4,6 +4,8 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Traits\HasStorage;
 
 /**
  * Class Map
@@ -12,15 +14,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Map extends Model
 {
+    use HasStorage;
 
     protected $fillable = [ 'name' ];
     protected $hidden = [ 'created_at', 'updated_at' ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      * Will return the callouts belonging to this map
      */
-    public function callouts()
+    public function callouts() : BelongsToMany
     {
         return $this->belongsToMany(Callout::class, 'maps_callouts');
     }
