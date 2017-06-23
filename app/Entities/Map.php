@@ -15,10 +15,6 @@ class Map extends Model
 
     protected $fillable = [ 'name' ];
 
-    public static $validation_rules = [
-        'name' => 'required'
-    ];
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      * Will return the callouts belonging to this map
