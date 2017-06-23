@@ -14,3 +14,10 @@
 $app->get('/', function () use ($app) {
     return $app->version();
 });
+
+$app->group(['prefix' => 'api'], function() use ($app) {
+
+    $app->get('/map/{id}', 'Api/MapsController@map');
+    $app->get('/maps', 'Api/MapsController@maps');
+    $app->post('/map', 'Api/MapsController@addMap');
+});
