@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
  * It will look for a folder 'plural-of-classname/name-property-of-object' within the 'app' storage folder
  * The 'name-property-of-object' part will be trimmed and decapitalized
  */
-class HasStorage
+trait HasStorage
 {
     /**
      * @return string The directory of the model's storage folder
