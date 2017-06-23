@@ -15,6 +15,8 @@ class CreateMapsCalloutsTable extends Migration
     {
         Schema::create('maps_callouts', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('map_id');
+            $table->integer('callout_id');
             $table->timestamps();
         });
     }
