@@ -16,8 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username');
-            $table->string('steam_id');
             $table->string('avatar');
+            $table->string('steamid64');
             $table->timestamps();
         });
     }
