@@ -14,12 +14,10 @@ abstract class TranslatableModel extends Model
     {
         $className = strtolower(class_basename($this));
 
-        $translation = $connection->table($this->table . '_localisations')->where([
+        return $connection->table($this->table . '_localisations')->where([
             $className . '_id' => $this->id,
             'lang' => $locale
-        ])->get();
-
-        return !is_null($translation);
+        ])->exists();
     }
 
     /**
