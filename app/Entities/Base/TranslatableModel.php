@@ -5,17 +5,18 @@ namespace App\Entities\Base;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Connection;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
 abstract class TranslatableModel extends Model
 {
     protected $translatable = [];
+    protected $className;
 
     public function hasTranslation(string $locale, Connection $connection) : bool
     {
-        $className = strtolower(class_basename($this));
-
         return $connection->table($this->table . '_localisations')->where([
-            $className . '_id' => $this->id,
+            $this->className . '_id' => $this->id,
             'lang' => $locale
         ])->exists();
     }

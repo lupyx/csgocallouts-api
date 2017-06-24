@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Entities\Quiz\Question;
 use App\Entities\Quiz\Quiz;
 use App\Entities\Quiz\UserQuiz;
-use App\Entities\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
