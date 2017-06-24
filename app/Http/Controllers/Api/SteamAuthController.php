@@ -26,28 +26,30 @@ class SteamAuthController extends Controller
 
     public function getAuthentication() : JsonResponse
     {
-        $openID = new LightOpenID('csgocallouts.win');
-
+        $openID = new LightOpenID(env('FRONTEND_URL'));
         if(!$openID->mode)
         {
             $openID->identity = 'http://steamcommunity.com/openid';
-            $openID->returnUrl = env('FRONTEND_URL') . 'auth';
+            $openID->returnUrl = env('FRONTEND_URL') . 'api/steam/auth';
+
             return response()->json(['auth_url' => $openID->authUrl()]);
         }
         elseif($openID->mode == 'cancel')
         {
             return response('Login cancelled', 401);
         }
-        else
+        elseif($openID->mode == 'id_res')
         {
-            if($openID->validate())
-                return $this->authenticateUser($openID->identity);
+            $openID->validate();
+            $identity = str_replace('http://steamcommunity.com/openid/id/', '', urldecode($openID->identity));
+            return $this->authenticateUser($identity);
         }
+        return response('Error authenticating', 500);
     }
 
     private function authenticateUser(string $steamId64) : JsonResponse
     {
-        $user = User::where('steamid64', $steamId64);
+        $user = User::where('steamid64', $steamId64)->first();
 
         if(is_null($user))
             $user = $this->registerUser($steamId64);
@@ -60,12 +62,10 @@ class SteamAuthController extends Controller
     private function registerUser(string $steamId64) : User
     {
         $response = $this->http->get('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' . env('STEAM_API_KEY') . '&steamids=' . $steamId64);
-
-        $steamUser = json_decode($response->getBody())['response']['players'][0];
-
+        $steamUser = (json_decode($response->getBody())->response->players[0]);
         $user = User::create([
-            'username' => $steamUser['personaname'],
-            'avatar' => $steamUser['avatarfull'],
+            'username' => $steamUser->personaname,
+            'avatar' => $steamUser->avatarfull,
             'steamid64' => $steamId64,
         ]);
 
@@ -82,7 +82,7 @@ class SteamAuthController extends Controller
             'expires' => Carbon::now()->addHours(3)->timestamp
         ];
 
-        $steamSession = SteamSession::create($session)->with('user');
+        $steamSession = SteamSession::create($session)->with('user')->first();
 
         return $steamSession;
     }
