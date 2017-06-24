@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SteamSession extends Model
 {
     protected $table = 'steam_sessions';
+    protected $hidden = [ 'created_at', 'updated_at' ];
     protected $fillable = [ 'user_id', 'token', 'expires' ];
 
     public function user() : BelongsTo
