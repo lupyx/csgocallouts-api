@@ -63,9 +63,9 @@ $app->middleware([
     palanik\lumen\Middleware\LumenCors::class
 ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+     'steamAuth' => App\Http\Middleware\SteamAuth::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -93,8 +93,8 @@ $app->middleware([
 |
 */
 
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-    require __DIR__.'/../routes/web.php';
+$app->group(['namespace' => 'App\Http\Controllers\Api', 'prefix' => 'api'], function ($app) {
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;
