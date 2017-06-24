@@ -20,7 +20,7 @@ class Question extends Model
      */
     public function hasTranslation(string $locale, Connection $connection) : bool
     {
-        $translation = $connection->table('questions_translations')->where([
+        $translation = $connection->table('questions_localisations')->where([
             'quiz_id' => $this->id,
             'lang' => $locale
         ])->get();
@@ -34,7 +34,7 @@ class Question extends Model
      */
     public function translate(string $locale, Connection $connection) : void
     {
-        $translation = $connection->table('questions_translations')->where([
+        $translation = $connection->table('questions_localisations')->where([
             'quiz_id' => $this->id,
             'lang' => $locale
         ])->first('title');
