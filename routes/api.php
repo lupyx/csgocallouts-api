@@ -24,4 +24,20 @@ $app->post('/map', 'MapsController@addMap');
 
 $app->group(['middleware' => 'steamAuth'], function () use ($app) {
 
+    $app->group(['prefix' => 'quiz'], function() use ($app) {
+
+        $app->post('/{quizId}/prepare', 'QuizController@generateQuiz');
+
+        $app->post('/{userQuizId}/checkAnswer', 'QuizController@checkAnswer');
+
+        $app->post('/{userQuizId}/finish', 'QuizController@finishQuiz');
+
+        $app->get('/userquiz/{userQuizId}', 'QuizController@userQuiz');
+
+        $app->get('/userquizzes', 'QuizController@userQuizzes');
+
+        $app->get('/quizzes', 'QuizController@quizzes');
+
+        $app->get('/quiz/{quizId}', 'QuizController@quiz');
+    });
 });
