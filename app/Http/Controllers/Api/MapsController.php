@@ -35,7 +35,7 @@ class MapsController extends Controller
      */
     public function map(int $id) : JsonResponse
     {
-        $map = Map::where('id', $id)->with('callouts')->get();
+        $map = Map::where('id', $id)->with('callouts')->first();
 
         return response()->json($map);
     }
