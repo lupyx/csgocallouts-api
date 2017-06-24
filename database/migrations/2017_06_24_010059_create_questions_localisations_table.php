@@ -13,11 +13,11 @@ class CreateQuestionsLocalisationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quizzes_localisations', function (Blueprint $table) {
+        Schema::create('questions_localisations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('quiz_id');
+            $table->integer('question_id');
             $table->string('lang');
-            $table->string('title');
+            $table->string('content');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateQuestionsLocalisationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quizzes_localisations');
+        Schema::dropIfExists('questions_localisations');
     }
 }
