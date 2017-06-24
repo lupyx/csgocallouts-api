@@ -32,7 +32,7 @@ class SteamAuthController extends Controller
         {
             $openID->identity = 'http://steamcommunity.com/openid';
             $openID->returnUrl = env('FRONTEND_URL') . 'auth';
-            return response()->json(['auth_url' => $this->openID->authUrl()]);
+            return response()->json(['auth_url' => $openID->authUrl()]);
         }
         elseif($openID->mode == 'cancel')
         {
