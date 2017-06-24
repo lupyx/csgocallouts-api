@@ -18,13 +18,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [ 'username', 'avatar', 'steamid64' ];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-    ];
+    protected $hidden = [ 'created_at', 'updated_at' ];
 }
