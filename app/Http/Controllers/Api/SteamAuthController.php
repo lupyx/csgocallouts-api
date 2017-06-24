@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Entities\Auth\SteamSession;
 use App\Entities\User;
 use Carbon\Carbon;
@@ -11,7 +12,6 @@ use \LightOpenID;
 
 class SteamAuthController extends Controller
 {
-    private $openID;
     private $http;
 
     /**
@@ -21,18 +21,31 @@ class SteamAuthController extends Controller
      */
     public function __construct()
     {
-        $this->openID = new LightOpenID('http://steamcommunity.com/openid');
         $this->http = new Client();
     }
 
     public function getAuthentication() : JsonResponse
     {
-        $this->openID->returnUrl = env('FRONTEND_URL') . 'auth';
+        $openID = new LightOpenID('csgocallouts.win');
 
-        return response()->json(['auth_url' => $this->openID->authUrl()]);
+        if(!$openID->mode)
+        {
+            $openID->identity = 'http://steamcommunity.com/openid';
+            $openID->returnUrl = env('FRONTEND_URL') . 'auth';
+            return response()->json(['auth_url' => $this->openID->authUrl()]);
+        }
+        elseif($openID->mode == 'cancel')
+        {
+            return response('Login cancelled', 401);
+        }
+        else
+        {
+            if($openID->validate())
+                return $this->authenticateUser($openID->identity);
+        }
     }
 
-    public function authenticateUser(string $steamId64) : JsonResponse
+    private function authenticateUser(string $steamId64) : JsonResponse
     {
         $user = User::where('steamid64', $steamId64);
 
