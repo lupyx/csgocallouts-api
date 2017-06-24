@@ -5,7 +5,6 @@ namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Traits\HasStorage;
 
 /**
  * Class Map
@@ -14,8 +13,6 @@ use App\Traits\HasStorage;
  */
 class Map extends Model
 {
-    use HasStorage;
-
     protected $fillable = [ 'name' ];
     protected $hidden = [ 'created_at', 'updated_at' ];
 
