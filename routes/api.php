@@ -17,6 +17,7 @@ $app->get('/', function () use ($app) {
 
 // SteamAuth register
 $app->post('/steamuser/{steamId64}', 'SteamAuthController@registerUser');
+$app->get('/steam/auth', 'SteamAuthController@getAuthenticationUrl');
 
 $app->get('/map/{id}', 'MapsController@map');
 $app->get('/maps', 'MapsController@maps');
