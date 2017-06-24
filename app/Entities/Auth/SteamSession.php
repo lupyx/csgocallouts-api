@@ -5,14 +5,15 @@ namespace App\Entities\Auth;
 
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SteamSession extends Model
 {
     protected $table = 'steam_sessions';
+    protected $fillable = [ 'user_id', 'token', 'expires' ];
 
-    public function user() : HasOne
+    public function user() : BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }

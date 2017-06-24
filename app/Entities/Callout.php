@@ -4,6 +4,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Callout
@@ -18,7 +19,7 @@ class Callout extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      * The maps the callout belongs to
      */
-    public function map()
+    public function maps() : BelongsToMany
     {
         return $this->belongsToMany(Map::class);
     }

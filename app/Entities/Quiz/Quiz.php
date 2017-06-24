@@ -5,8 +5,8 @@ namespace App\Entities\Quiz;
 
 use App\Entities\Base\TranslatableModel;
 use App\Entities\Map;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Quiz extends TranslatableModel
 {
@@ -18,8 +18,8 @@ class Quiz extends TranslatableModel
         return $this->belongsToMany(Question::class, 'quizzes_questions');
     }
 
-    public function map() : HasOne
+    public function map() : BelongsTo
     {
-        return $this->hasOne(Map::class);
+        return $this->belongsTo(Map::class);
     }
 }

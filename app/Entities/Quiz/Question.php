@@ -5,7 +5,7 @@ namespace App\Entities\Quiz;
 
 use App\Entities\Base\TranslatableModel;
 use App\Entities\Callout;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Question extends TranslatableModel
 {
@@ -13,8 +13,8 @@ class Question extends TranslatableModel
     protected $hidden = [ 'pivot', 'created_at', 'updated_at' ];
     protected $translatable = [ 'content' ];
 
-    public function answer() : HasOne
+    public function answer() : BelongsTo
     {
-        return $this->hasOne(Callout::class, 'questions_answers');
+        return $this->belongsTo(Callout::class, 'questions_answers');
     }
 }

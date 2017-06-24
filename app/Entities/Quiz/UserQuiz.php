@@ -6,20 +6,20 @@ namespace App\Entities\Quiz;
 
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserQuiz extends Model
 {
     protected $table = 'users_quizzes';
     protected $hidden = [ 'pivot', 'created_at', 'updated_at' ];
 
-    public function user() : HasOne
+    public function user() : BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function quiz() : HasOne
+    public function quiz() : BelongsTo
     {
-        return $this->hasOne(Quiz::class);
+        return $this->belongsTo(Quiz::class);
     }
 }
