@@ -18,5 +18,11 @@ class DatabaseSeeder extends Seeder
         $this->call('MapTableSeeder');
         $this->call('CalloutTableSeeder');
         $this->call('MapCalloutTableSeeder');
+
+        // Run Quiz & questions seeder, afterwards assign questions to quizzes
+        $this->call('QuizTableSeeder');
+        $this->call('QuestionTableSeeder');
+        $this->call('QuizQuestionTableSeeder');
+
     }
 }
