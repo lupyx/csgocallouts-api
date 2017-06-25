@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class UserQuiz extends Model
 {
     protected $table = 'users_quizzes';
+    protected $guarded = [ 'id' ];
     protected $hidden = [ 'pivot', 'created_at', 'updated_at' ];
 
     public function user() : BelongsTo
