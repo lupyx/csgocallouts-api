@@ -45,7 +45,7 @@ class QuizController extends Controller
     public function generateQuiz(Request $request, int $quizId) : JsonResponse
     {
         $user = $request->get('steamUser');
-        $quiz = Quiz::findOrFail();
+        $quiz = Quiz::findOrFail($quizId);
 
         $userQuiz = UserQuiz::create([
             'user_id' => $user->id,
