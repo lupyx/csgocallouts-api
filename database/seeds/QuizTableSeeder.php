@@ -13,7 +13,7 @@ class QuizTableSeeder extends Seeder
     public function run()
     {
         $quizzes = [
-            ['id' => 1, 'title' => 'Spots Knowledge', 'map_id' => 1],
+            ['id' => 1, 'title' => 'Spots Knowledge', 'map_id' => 1, 'time_limit' => 120],
         ];
 
         Quiz::insert($quizzes);
