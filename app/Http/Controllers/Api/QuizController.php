@@ -28,7 +28,7 @@ class QuizController extends Controller
 
     public function quiz(int $quizId): JsonResponse
     {
-        return response()->json(Quiz::findOrFail($quizId)->with('questions'));
+        return response()->json(Quiz::findOrFail($quizId)->with('questions')->first());
     }
 
     public function userQuizzes(Request $request) : JsonResponse
@@ -53,7 +53,7 @@ class QuizController extends Controller
             'score' => 0,
             'max_score' => count($quiz->questions),
             'finished' => 0
-        ])->with('quiz.questions');
+        ])->with('quiz.questions')->first();
 
         return response()->json($userQuiz);
     }
