@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Entities\Quiz\Question;
 use App\Entities\Quiz\Quiz;
 use App\Entities\Quiz\UserQuiz;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -52,7 +53,9 @@ class QuizController extends Controller
             'quiz_id' => $quizId,
             'score' => 0,
             'max_score' => count($quiz->questions),
-            'finished' => 0
+            'finished' => 0,
+            'start_time' => Carbon::now()->timestamp,
+            'end_time' => Carbon::now()->addSeconds($quiz->time_limit)->timestamp
         ])->with('quiz.questions')->first();
 
         return response()->json($userQuiz);
