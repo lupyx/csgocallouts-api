@@ -23,7 +23,7 @@ class SteamAuth
             $sessionToken = $request->headers->get('SteamAuthentication');
             $session = SteamSession::where('token', $sessionToken)->orderBy('expires', 'desc')->first();
 
-            if(!is_null($session) && Carbon::parse($session->expires)->isFuture())
+            if(!is_null($session) && Carbon::createFromTimestamp($session->expires)->isFuture())
             {
                 $request->attributes->add(['steamUser' => $session->user]);
 
