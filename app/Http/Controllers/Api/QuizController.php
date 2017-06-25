@@ -51,7 +51,7 @@ class QuizController extends Controller
             'user_id' => $user->id,
             'quiz_id' => $quizId,
             'score' => 0,
-            'max_score' => $quiz->max_score,
+            'max_score' => count($quiz->questions),
             'finished' => 0
         ])->with('quiz.questions');
 
