@@ -19,6 +19,8 @@ class CreateUsersQuizzesTable extends Migration
             $table->integer('quiz_id');
             $table->integer('score');
             $table->integer('max_score');
+            $table->string('start_time');
+            $table->string('end_time');
             $table->boolean('finished');
             $table->timestamps();
         });

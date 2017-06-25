@@ -17,7 +17,7 @@ class CreateQuizzesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('map_id');
-            $table->timestamps();
+            $table->integer('time_limit');
         });
     }
 
