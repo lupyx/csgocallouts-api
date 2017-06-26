@@ -37,7 +37,7 @@ class Question extends TranslatableModel
      * @param int $amountOfChoices The amount of choices (correct answer included) this method should generate
      * Will generate the preparedAnswers[] property of this class including the right answer and wrong answers
      */
-    public function prepareForAnswer(int $amountOfChoices = 3) : void
+    public function prepareForAnswer(int $amountOfChoices = 4) : void
     {
         $this->preparedAnswers[] = $this->answer;
         $wrongAnswers = Callout::whereNotIn('id', $this->answer->id)->inRandomOrder()->take($amountOfChoices - 1);
