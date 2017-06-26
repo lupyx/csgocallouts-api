@@ -27,23 +27,32 @@ class SteamAuthController extends Controller
     public function getAuthentication() : JsonResponse
     {
         $openID = new LightOpenID(env('FRONTEND_URL'));
-        if(!$openID->mode)
+
+        if($openID->mode)
+        {
+            switch($openID->mode)
+            {
+                case 'id_res':
+                {
+                    $openID->validate();
+                    $identity = str_replace('http://steamcommunity.com/openid/id/', '', urldecode($openID->identity));
+                    return $this->authenticateUser($identity);
+                }
+
+                case 'cancel':
+                {
+                    return response('Login cancelled', 401);
+                }
+            }
+        }
+        else
         {
             $openID->identity = 'http://steamcommunity.com/openid';
-            $openID->returnUrl = env('FRONTEND_URL') . 'api/steam/auth';
+            $openID->returnUrl = env('FRONTEND_URL') . env('FRONTEND_AUTH_PATH');
 
             return response()->json(['auth_url' => $openID->authUrl()]);
         }
-        elseif($openID->mode == 'cancel')
-        {
-            return response('Login cancelled', 401);
-        }
-        elseif($openID->mode == 'id_res')
-        {
-            $openID->validate();
-            $identity = str_replace('http://steamcommunity.com/openid/id/', '', urldecode($openID->identity));
-            return $this->authenticateUser($identity);
-        }
+
         return response('Error authenticating', 500);
     }
 
