@@ -58,6 +58,13 @@ class QuizController extends Controller
             'end_time' => Carbon::now()->addSeconds($quiz->time_limit)->timestamp
         ])->with('quiz.questions')->first();
 
+        foreach($userQuiz->questions as &$question) {
+
+            /* @var $question Question */
+            $question->prepareForAnswer();
+
+        }; // Generate possible answers for the questions
+
         return response()->json($userQuiz);
     }
 
