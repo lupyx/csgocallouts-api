@@ -21,9 +21,10 @@ class SteamAuth
         if($request->headers->has('SteamAuthentication'))
         {
             $sessionToken = $request->headers->get('SteamAuthentication');
-            $session = SteamSession::where('token', $sessionToken)->orderBy('expires', 'desc')->first();
+            $session = SteamSession::where('token', $sessionToken)->
+                where('expires', '>', time())->orderBy('expires', 'desc')->first();
 
-            if($session && ((int) $session->expires > time()))
+            if($session)
             {
                 $request->attributes->add(['steamUser' => $session->user]);
 

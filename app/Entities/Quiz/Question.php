@@ -7,21 +7,22 @@ use App\Entities\Base\TranslatableModel;
 use App\Entities\Callout;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 class Question extends TranslatableModel
 {
     protected $fillable = [ 'content' ];
-    protected $hidden = [ 'pivot', 'created_at', 'updated_at' ];
+    protected $hidden = [ 'pivot', 'created_at', 'updated_at', 'answer_id', 'answer' ];
     protected $translatable = [ 'content' ];
-
-    public $preparedAnswers = [];
+    protected $appends = ['preparedAnswers'];
+    protected $preparedAnswers = [];
 
     /**
      * @return BelongsTo
      */
     public function answer() : BelongsTo
     {
-        return $this->belongsTo(Callout::class, 'questions_answers');
+        return $this->belongsTo(Callout::class, 'answer_id');
     }
 
     /**
@@ -39,12 +40,21 @@ class Question extends TranslatableModel
      */
     public function prepareForAnswer(int $amountOfChoices = 4) : void
     {
-        $this->preparedAnswers[] = $this->answer;
-        $wrongAnswers = Callout::whereNotIn('id', $this->answer->id)->inRandomOrder()->take($amountOfChoices - 1);
+        $this->preparedAnswers[] = $this->answer->name;
+        $id = $this->id;
+        $wrongAnswersNeeded = $amountOfChoices - 1;
+        $wrongAnswers =
+            DB::select("SELECT * FROM callouts WHERE id NOT IN (SELECT answer_id FROM questions WHERE id=$id) ORDER BY RAND() LIMIT $wrongAnswersNeeded");
 
-        foreach($wrongAnswers as $wrongAnswer)
-            $this->preparedAnswers[] = $wrongAnswer;
+        foreach($wrongAnswers as $wrongAnswer) {
+            $this->preparedAnswers[] = $wrongAnswer->name;
+        }
 
-        $this->preparedAnswers = shuffle($this->preparedAnswers);
+        shuffle($this->preparedAnswers);
+    }
+
+    public function getPreparedAnswersAttribute()// : array
+    {
+        return $this->preparedAnswers;
     }
 }
