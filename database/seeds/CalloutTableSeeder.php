@@ -10,7 +10,10 @@ class CalloutTableSeeder extends Seeder
     public function run()
     {
         $callouts = [
-            ['name' => 'CT Spawn']
+            ['id' => 1, 'name' => 'CT Spawn'],
+            ['id' => 2, 'name' => 'Mid'],
+            ['id' => 3, 'name' => 'Long A'],
+            ['id' => 4, 'name' => 'Short A']
         ];
 
         Callout::insert($callouts);
