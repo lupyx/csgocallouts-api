@@ -68,7 +68,7 @@ class QuizController extends Controller
         return response()->json($userQuiz);
     }
 
-    public function checkQuestion(Request $request, int $userQuizId) : JsonResponse
+    public function checkAnswer(Request $request, int $userQuizId) : JsonResponse
     {
         $this->validate($request, [
             'question_id' => 'required|numeric',
