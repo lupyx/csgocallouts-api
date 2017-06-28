@@ -38,7 +38,7 @@ class Question extends TranslatableModel
      * @param int $amountOfChoices The amount of choices (correct answer included) this method should generate
      * Will generate the preparedAnswers[] property of this class including the right answer and wrong answers
      */
-    public function prepareForAnswer(int $amountOfChoices = 4) : void
+    public function prepareForAnswer(int $amountOfChoices = 4)
     {
         $this->preparedAnswers[] = $this->answer->name;
         $id = $this->id;
